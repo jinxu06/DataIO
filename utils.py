@@ -13,4 +13,4 @@ def read_images_batch(path, batch_size, suffix=""):
     dirpath, dirnames, filenames = next(os.walk(path))
     fs = filter(lambda x: x.endswith(suffix), filenames)
     fs = sorted(fs)
-    return np.array([Image.open(os.path.join(dirpath, fs[i])) for i in range(batch_size)])
+    return np.array([np.array(Image.open(os.path.join(dirpath, fs[i]))) for i in range(batch_size)])
