@@ -10,13 +10,13 @@ def load_data(which_set="train", mode="all"):
             "mode takes values in [all, batch]"
     if mode == 'all':
         path = os.path.join(DATA_DIR, "raw_data/mnist", "mnist.npz")
-        return load_data_all(path)
+        return _load_data_all(path, which_set)
     elif mode == 'batch':
-        return load_data_batch()
+        return _load_data_batch()
 
-def load_data_all(path):
+def _load_data_all(path, which_set):
     data = np.load(path)
-    return data
+    return data["x_"+which_set], data['y_'+which_set]
 
-def load_data_batch():
+def _load_data_batch():
     pass
