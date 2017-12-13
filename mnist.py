@@ -17,25 +17,26 @@ def info():
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(meta_dict)
 
-def load_data(which_set="train", mode="all"):
+def load_data(which_set="train", mode="all", batch_size=100, shuffle=True):
     assert which_set in ['train', 'valid', 'test'], \
             "which_set takes values in [train, test]"
     assert mode in ['all', 'batch'], \
             "mode takes values in [all, batch]"
+    path = os.path.join(DATA_DIR, "raw_data/mnist", "mnist.npz")
     if mode == 'all':
-        path = os.path.join(DATA_DIR, "raw_data/mnist", "mnist.npz")
         return _load_data_all(path, which_set)
     elif mode == 'batch':
-        return _load_data_batch()
+        return _load_data_batch(path, which_set, batch_size, shuffle_order=shuffle)
 
 def _load_data_all(path, which_set):
     data = np.load(path)
     return data["x_"+which_set], data['y_'+which_set]
 
 def _load_data_batch(path, which_set, batch_size):
-    pass
+    generator = MNISTDataProvider(which_set=which_set, batch_size=batch_size)
+    return generator
 
-class MNISTIterator(DataProvider):
+class MNISTDataProvider(DataProvider):
 
     def __init__(self, which_set="train", batch_size=100, max_num_batches=-1, shuffle_order=True):
 
