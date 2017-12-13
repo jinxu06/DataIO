@@ -4,9 +4,9 @@ import os
 DATA_DIR = "/data/ziz/not-backed-up/dataset-ziz-only"
 
 def load_data(which_set="train", mode="all"):
-    assert which_set in ['train', 'valid', 'test'],
+    assert which_set in ['train', 'valid', 'test'], \
             "which_set takes value train, valid, test"
-    assert mode in ['all', 'batch'],
+    assert mode in ['all', 'batch'], \
             "mode takes value all, batch"
     if mode == 'all':
         path = os.path.join(DATA_DIR, "raw_data/mnist-{0}.npz".format(which_set))
