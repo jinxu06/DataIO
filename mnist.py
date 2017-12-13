@@ -45,7 +45,5 @@ class MNISTIterator(DataProvider):
 
     def next(self):
         """Returns next data batch or raises `StopIteration` if at end."""
-        inputs_batch, targets_batch = super(MNISTDataProvider, self).next()
+        inputs_batch, targets_batch = super().next()
         return inputs_batch, targets_batch
-
-    
