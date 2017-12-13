@@ -9,7 +9,7 @@ def load_data(which_set="train", mode="all"):
     assert mode in ['all', 'batch'], \
             "mode takes values in [all, batch]"
     if mode == 'all':
-        path = os.path.join(DATA_DIR, "raw_data/mnist", "mnist-{0}.npz".format(which_set))
+        path = os.path.join(DATA_DIR, "raw_data/mnist", "mnist.npz")
         return load_data_all(path)
     elif mode == 'batch':
         return load_data_batch()
