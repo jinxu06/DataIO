@@ -26,14 +26,14 @@ def load_data(which_set="train", mode="all", batch_size=100, shuffle=True):
     if mode == 'all':
         return _load_data_all(path, which_set)
     elif mode == 'batch':
-        return _load_data_batch(path, which_set, batch_size, shuffle_order=shuffle)
+        return _load_data_batch(path, which_set, batch_size, shuffle)
 
 def _load_data_all(path, which_set):
     data = np.load(path)
     return data["x_"+which_set], data['y_'+which_set]
 
-def _load_data_batch(path, which_set, batch_size):
-    generator = MNISTDataProvider(which_set=which_set, batch_size=batch_size)
+def _load_data_batch(path, which_set, batch_size, shuffle):
+    generator = MNISTDataProvider(which_set=which_set, batch_size=batch_size, shuffle_order=shuffle)
     return generator
 
 class MNISTDataProvider(DataProvider):
