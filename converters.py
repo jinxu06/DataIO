@@ -4,14 +4,8 @@ import tables
 import os
 from PIL import Image
 
-data_order = 'tf'  # 'th' for Theano, 'tf' for Tensorflow
 img_dtype = tables.UInt8Atom()  # dtype in which the images will be saved
-
-# check the order of data and chose proper data shape to save images
-if data_order == 'th':
-    data_shape = (0, 3, 224, 224)
-elif data_order == 'tf':
-    data_shape = (0, 224, 224, 3)
+data_shape = (0, 218, 178, 3)
 
 # open a hdf5 file and create earrays
 
