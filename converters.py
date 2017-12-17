@@ -12,7 +12,7 @@ def convert_images_dir_to_h5(input_dir, output_name, img_type=None, img_shape=No
     dirpath, dirnames, filenames = next(os.walk(input_dir))
     if suffix is None:
         for f in filenames:
-            for s in [".png", ".jpg", ".jpeg"]
+            for s in [".png", ".jpg", ".jpeg"]:
                 if f.endswith(s):
                     suffix = s
                     break
