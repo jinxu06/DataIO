@@ -4,31 +4,40 @@ import tables
 import os
 from PIL import Image
 
-img_dtype = tables.UInt8Atom()  # dtype in which the images will be saved
-data_shape = (0, 218, 178, 3)
 
-# open a hdf5 file and create earrays
+def convert_images_dir_to_h5(input_dir, output_name, img_type=None, img_shape=None, suffix=None):
+    if os.path.exists(input_dir):
+        raise Exception("input_dir {0} not found".format(input_dir))
 
-hdf5_path = "celeba.h5"
+    dirpath, dirnames, filenames = next(os.walk(input_dir))
+    if suffix is None:
+        for f in filenames:
+            for s in [".png", ".jpg", ".jpeg"]
+                if f.endswith(s):
+                    suffix = s
+                    break
+            else:
+                raise Exception("cannot infer suffix, please specify")
+            if suffix is not None:
+                break
+    filenames = sorted(list(filter(lambda x: x.endswith(suffix), filenames)))
+    if img_type is None:
+        img_dtype = tables.UInt8Atom()
+    else:
+        raise Exception("Unknown img_type, only support uint8")
+    if img_shape is None:
+        img_shape = np.array(Image.open(filenames[0])).shape
+    if not output_name.endswith(".h5"):
+        output_name = output_name + '.h5'
 
-hdf5_file = tables.open_file(hdf5_path, mode='w')
+    hdf5_file = tables.open_file(output_name, mode='w')
+    storage = hdf5_file.create_earray(hdf5_file.root, 'images', img_dtype, shape=data_shape)
 
-train_storage = hdf5_file.create_earray(hdf5_file.root, 'train_img', img_dtype, shape=data_shape)
-val_storage = hdf5_file.create_earray(hdf5_file.root, 'val_img', img_dtype, shape=data_shape)
-test_storage = hdf5_file.create_earray(hdf5_file.root, 'test_img', img_dtype, shape=data_shape)
+    for f in filenames:
+        img = np.array(Image.open(os.path.join(input_dir, f)), dtype=np.uint8)
+        storage.append(img[None])
 
-# mean_storage = hdf5_file.create_earray(hdf5_file.root, 'train_mean', img_dtype, shape=data_shape)
-
-# create the label arrays and copy the labels data in them
-# hdf5_file.create_array(hdf5_file.root, 'train_labels', train_labels)
-# hdf5_file.create_array(hdf5_file.root, 'val_labels', val_labels)
-# hdf5_file.create_array(hdf5_file.root, 'test_labels', test_labels)
 
 DATA_DIR = "/data/ziz/not-backed-up/jxu/CelebA/celebA"
 
-dirpath, dirnames, filenames = next(os.walk(DATA_DIR))
-filenames = sorted(list(filter(lambda x: x.endswith(".jpg"), filenames)))
-
-for f in filenames:
-    img = np.array(Image.open(os.path.join(DATA_DIR, f)), dtype=np.uint8)
-    train_storage.append(img[None])
+convert_images_dir_to_h5(DATA_DIR, "celeba")
