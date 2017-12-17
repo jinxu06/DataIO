@@ -28,8 +28,8 @@ test_storage = hdf5_file.create_earray(hdf5_file.root, 'test_img', img_dtype, sh
 # hdf5_file.create_array(hdf5_file.root, 'val_labels', val_labels)
 # hdf5_file.create_array(hdf5_file.root, 'test_labels', test_labels)
 
+DATA_DIR = "/data/ziz/not-backed-up/jxu/CelebA/celebA"
 
-train_storage = hdf5_file.root.train_img
-val_storage = hdf5_file.root.val_img
-test_storage = hdf5_file.root.test_img
-print(train_storage)
+dirpath, dirnames, filenames = next(os.walk(DATA_DIR))
+filenames = sorted(list(filter(lambda x: x.endswith(".jpg"), filenames)))
+print(filenames)
