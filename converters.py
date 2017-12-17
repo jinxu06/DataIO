@@ -26,7 +26,7 @@ def convert_images_dir_to_h5(input_dir, output_name, img_type=None, img_shape=No
     else:
         raise Exception("Unknown img_type, only support uint8")
     if img_shape is None:
-        img_shape = np.array(Image.open(filenames[0])).shape
+        img_shape = np.array(Image.open(os.path.join(input_dir, filenames[0]))).shape
     if not output_name.endswith(".h5"):
         output_name = output_name + '.h5'
 
