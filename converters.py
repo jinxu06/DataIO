@@ -6,7 +6,7 @@ from PIL import Image
 
 
 def convert_images_dir_to_h5(input_dir, output_name, img_type=None, img_shape=None, suffix=None):
-    if os.path.exists(input_dir):
+    if not os.path.exists(input_dir):
         raise Exception("input_dir {0} not found".format(input_dir))
 
     dirpath, dirnames, filenames = next(os.walk(input_dir))
