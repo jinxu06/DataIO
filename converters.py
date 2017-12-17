@@ -2,6 +2,7 @@
 import numpy as np
 import tables
 import os
+from PIL import Image
 
 data_order = 'tf'  # 'th' for Theano, 'tf' for Tensorflow
 img_dtype = tables.UInt8Atom()  # dtype in which the images will be saved
@@ -33,4 +34,8 @@ DATA_DIR = "/data/ziz/not-backed-up/jxu/CelebA/celebA"
 
 dirpath, dirnames, filenames = next(os.walk(DATA_DIR))
 filenames = sorted(list(filter(lambda x: x.endswith(".jpg"), filenames)))
-print(filenames)
+
+for f in filenames:
+    img = np.array(Image.open(f), dtype=np.uint8)
+    print(img.shape)
+    break
