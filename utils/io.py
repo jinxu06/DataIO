@@ -23,5 +23,7 @@ def inspect_data_dirs(dirs):
             dirpath, dirnames, filenames = next(os.walk(d))
             if len(dirnames)+len(filenames) ==0:
                 print("{0}: folder exists but empty".format(d))
+            else:
+                print("{0}: {1} directories, {2} files".format(d, len(dirnames), len(filenames)))
         else:
             print("{0}: folder not found or not accessible".format(d))
