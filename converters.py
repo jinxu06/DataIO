@@ -36,6 +36,7 @@ dirpath, dirnames, filenames = next(os.walk(DATA_DIR))
 filenames = sorted(list(filter(lambda x: x.endswith(".jpg"), filenames)))
 
 for f in filenames:
-    img = np.array(Image.open(f), dtype=np.uint8)
+    img = np.array(Image.open(os.path.join(DATA_DIR, f)), dtype=np.uint8)
     print(img.shape)
+    print(img[None].shape)
     break
