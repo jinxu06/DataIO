@@ -13,6 +13,8 @@ def info():
         "location": os.path.join(DATA_DIR, "raw_data/mnist", "mnist.npz"),
         "available set": ['train', 'test'],
         "available mode": ['all', 'batch'],
+        "data source": "",
+        "remark": "",
     }
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(meta_dict)
