@@ -1,6 +1,7 @@
 # http://machinelearninguru.com/deep_learning/data_preparation/hdf5/hdf5.html
 import numpy as np
 import tables
+import os
 
 data_order = 'tf'  # 'th' for Theano, 'tf' for Tensorflow
 img_dtype = tables.UInt8Atom()  # dtype in which the images will be saved
