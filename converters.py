@@ -31,7 +31,7 @@ def convert_images_dir_to_h5(input_dir, output_name, img_type=None, img_shape=No
         output_name = output_name + '.h5'
 
     hdf5_file = tables.open_file(output_name, mode='w')
-    storage = hdf5_file.create_earray(hdf5_file.root, 'images', img_dtype, shape=img_shape)
+    storage = hdf5_file.create_earray(hdf5_file.root, 'images', img_dtype, shape=(0, )+img_shape)
 
     for f in filenames:
         img = np.array(Image.open(os.path.join(input_dir, f)), dtype=np.uint8)
